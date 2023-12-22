@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+\makeatletter
+\def\alignedspace@left{\null\,}
+\makeatother
+\newtheorem{theorem}{Theorem}
+\begin{document}
+
+\section{Równanie}
+$$
+\begin{gathered}
+    \frac{d}{d x}(-k(x) \frac{d u(x)}{d x})=0 \\
+    u(2)=0 \\
+    \frac{d u(0)}{d x}+u(0)=20 \\
+k(x)= \begin{cases}1 & \text { dla } x \in[0,1] \\
+    2 & \text { dla } x \in(1,2]\end{cases}
+\end{gathered}
+$$
+
+Gdzie $u$ to poszukiwana funkcja
+$$
+[0,2] \ni x \rightarrow u(x) \in \mathbb{R}
+$$
+\end{document}
