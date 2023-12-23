@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       BaseFunctions
+      MatrixGen
       Spec
   other-modules:
       Paths_r_projekt
