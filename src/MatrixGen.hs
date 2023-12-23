@@ -1,4 +1,4 @@
-module MatrixGen(generateBs, generateLs, coefficients)where
+module MatrixGen(generateBs, generateLs, coefficients, approxU)where
 
 import BaseFunctions
 import Spec
@@ -6,14 +6,13 @@ import Math.GaussianQuadratureIntegration(nIntegrate256)
 import Data.Maybe (fromJust)
 import Numeric.LinearAlgebra (flatten, fromLists, linearSolve, luSolve, toList, toLists, (><))
 
--- approxU :: Int -> Double -> Double
--- approxU n x =
---   sum . zipWith (\i c_i -> c_i * basisF i x) [0 ..] . coefficients $ n
---   where
---     basisF = eI
+approxU :: Double -> Double
+approxU x = sum . zipWith (*) coefficients $ basisF x
+  where
+    basisF x = [fromJust (eI n i) x | i <- [0..n]]
 
 coefficients :: [Double]
-coefficients = 0 : (toList . flatten $ fromJust (linearSolve b_matrix l_vector))
+coefficients = toList . flatten $ fromJust (linearSolve b_matrix l_vector)
   where
     b_matrix = fromLists generateBs 
     l_vector = (n >< 1) generateLs

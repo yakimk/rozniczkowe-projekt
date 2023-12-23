@@ -11,6 +11,7 @@ eI n i
     | otherwise = Just (constructF h i)
     where
         h = range / fromIntegral n
+        
 eI' :: Int -> Int -> Maybe (Double -> Double)
 eI' n i
     | i < 0 || i > n = Nothing
