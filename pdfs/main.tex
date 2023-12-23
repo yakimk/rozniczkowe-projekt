@@ -11,10 +11,10 @@
 \newtheorem{theorem}{Theorem}
 \begin{document}
 
-\section{Równanie}
+\section{Sformuowanie silne}
 $$
 \begin{gathered}
-    \frac{d}{d x}(-k(x) \frac{d u(x)}{d x})=0 \\
+    \frac{d}{d x}\left(-k(x) \frac{d u(x)}{d x}\right)=0 \\
     u(2)=0 \\
     \frac{d u(0)}{d x}+u(0)=20 \\
 k(x)= \begin{cases}1 & \text { dla } x \in[0,1] \\
@@ -27,18 +27,19 @@ $$
 [0,2] \ni x \rightarrow u(x) \in \mathbb{R}
 $$
 
-\section{Przekształcenie}
+\section{Sformuowanie wariacyjne}
 $$
 \begin{gathered}
 -\frac{dk}{dx}\frac{du}{dx} - k\frac{d^2u}{dx^2} = 0\\
 - k\frac{d^2u}{dx^2} = 0\\
 \frac{d^2u}{dx^2} = 0\\
+\int_0^2\frac{d^2u}{dx^2} = 0\\
 u'(x)v(x)\big\rvert^2_0 - \int_0^2u'v'dx = 0\\
 u'(2)v(2) - u'(0)v(0) - \int_0^2u'v'dx = 0\\
+- u'(0)v(0) - \int_0^2u'v'dx = 0\\
+u(0)v(0) - \int_0^2u'v'dx = 20v(0)\\
+B(u,v ) = u(0)v(0) - \int_0^2u'v'dx, \text{ } L(v) = 20v(0)\\
 B(u, v) = L(v)\\
-2u'(2)  - \int_0^2u'v'dx = 20 - u(0)\\
-B(u, v) = 2u'(2) - \int^2_0u'v'dx\\
-L(v) = 20 - u(0)
 \end{gathered}
 $$
 \end{document}
