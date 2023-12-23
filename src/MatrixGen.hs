@@ -35,6 +35,6 @@ generateBs = [ [ generateB i j | i <- [1..n] ] | j <- [1..n] ]
 generateB :: Int -> Int -> Double
 generateB i j  
     |abs(i - j) > 1 = 0
-    |otherwise = generateL j * evalF (eI n i) 0 - nIntegrate256 f lowerBound upperBound 
+    |otherwise = generateL j * fromJust (eI n i) 0 - nIntegrate256 f lowerBound upperBound 
     where 
-        f x = unwrapF(eI' n i) x  * unwrapF(eI' n j) x
+        f x = fromJust(eI' n i) x  * fromJust(eI' n j) x

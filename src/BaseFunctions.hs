@@ -1,8 +1,6 @@
 module BaseFunctions
     ( eI,
     eI',
-    evalF,
-    unwrapF
     ) where
 
 import Spec
@@ -39,11 +37,3 @@ constructF' h i x
         x_prev = h * fromIntegral (i - 1) + lowerBound
         x_succ = h * fromIntegral (i + 1) + lowerBound
         x_curr = h * fromIntegral i + lowerBound
-
-evalF :: Maybe(Double -> Double) -> Double -> Double
-evalF (Just f) x = f x
-evalF Nothing _ = 0
-
-unwrapF :: Maybe(Double -> Double) -> (Double -> Double)
-unwrapF (Just f) = f
-unwrapF Nothing = error "NOOOO"
