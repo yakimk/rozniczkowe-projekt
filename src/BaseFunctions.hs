@@ -5,15 +5,17 @@ module BaseFunctions
 
 import Spec
 
-eI :: Int -> Int -> Maybe (Double -> Double)
-eI n i
+n = defaultN
+
+eI :: Int -> Maybe (Double -> Double)
+eI i
     | i < 0 || i > n = Nothing
     | otherwise = Just (constructF h i)
     where
         h = range / fromIntegral n
-        
-eI' :: Int -> Int -> Maybe (Double -> Double)
-eI' n i
+
+eI' :: Int -> Maybe (Double -> Double)
+eI' i
     | i < 0 || i > n = Nothing
     | otherwise = Just (constructF' h i)
     where
@@ -27,7 +29,7 @@ constructF h i x
     where
         x_prev = h * fromIntegral (i - 1) + lowerBound
         x_succ = h * fromIntegral (i + 1) + lowerBound
-        x_curr = h * fromIntegral i + lowerBound
+        x_curr= h * fromIntegral i + lowerBound
 
 constructF' :: Double -> Int -> Double -> Double
 constructF' h i x  
