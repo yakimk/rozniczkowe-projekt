@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Lib()
+import BaseFunctions()
 -- import Math.GaussianQuadratureIntegration (nIntegrate256)
 
 main :: IO ()

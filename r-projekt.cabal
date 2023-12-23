@@ -1,6 +1,6 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.35.0.
+-- This file has been generated from package.yaml by hpack version 0.35.2.
 --
 -- see: https://github.com/sol/hpack
 
@@ -25,7 +25,8 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      BaseFunctions
+      Spec
   other-modules:
       Paths_r_projekt
   autogen-modules:
