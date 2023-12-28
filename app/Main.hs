@@ -22,7 +22,7 @@ import System.Exit ()
 import Text.Read()
 
 
-approxPlot :: [(Double, Double)]
+approxPlot :: Int -> [(Double, Double)]
 approxPlot n = [(x i , approxU (x i)) | i <- [0..n]] :: [(Double, Double)]
     where
         h = range / fromIntegral n
@@ -40,6 +40,6 @@ main = do
   toFile def "solution.svg" $ do
     setColors [opaque blue, opaque blue, opaque red]
     plot (line "Aproximate solution" [approxPlot n])
-    plot (points "" approxPlot)
+    plot (points "" $ approxPlot n)
 
   putStrLn "Done."
