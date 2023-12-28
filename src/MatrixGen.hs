@@ -4,7 +4,7 @@ import BaseFunctions
 import Spec
 import Math.GaussianQuadratureIntegration(nIntegrate256)
 import Data.Maybe (fromJust)
-import Numeric.LinearAlgebra (flatten, fromLists, linearSolve, luSolve, toList, toLists, (><))
+import Numeric.LinearAlgebra (flatten, fromLists, linearSolve, luSolve, toList, (><))
 
 approxU :: Double -> Double
 approxU x = sum . zipWith (*) coefficients $ basisF x
@@ -43,12 +43,11 @@ generateB i j
     |otherwise = fromJust (eI i) 0 * fromJust (eI j) 0 - nIntegrate256 f up low
     where 
         f x = fromJust(eI' i) x  * fromJust(eI' j) x * k x
-        (up, low) = (0, 2)
+        (up, low) = bounds i j
 
 bounds :: Int -> Int -> (Double, Double)
-bounds i j  | abs(i - j) == 1 = ((fromIntegral low * range)/fromIntegral n, (fromIntegral up*range)/fromIntegral n)
-            |otherwise = (lowerBound + h*fromIntegral i, lowerBound + h * fromIntegral(i+1))
+bounds i j  | abs(i - j) == 1 = (range * fromIntegral low/fromIntegral n, (fromIntegral up*range)/fromIntegral n)
+            |otherwise = (lowerBound + range * max 0.0 (fromIntegral (i - 1))/fromIntegral n, lowerBound + range * min 1.0 (fromIntegral(i+1)/fromIntegral n))
   where
     up = max i j
     low = min i j
-    h = range/fromIntegral n

@@ -1,8 +1,8 @@
 module Main (main) where
 
-import BaseFunctions
+import BaseFunctions()
 import MatrixGen
-import Data.Maybe (fromMaybe)
+import Data.Maybe()
 import Graphics.Rendering.Chart.Backend.Diagrams (toFile)
 import Graphics.Rendering.Chart.Easy
   ( Default (def),
@@ -19,7 +19,7 @@ import Graphics.Rendering.Chart.Easy
 import Spec
 import System.Environment (getArgs)
 import System.Exit ()
-import Text.Read (readMaybe)
+import Text.Read()
 
 n = defaultN
 
@@ -35,11 +35,7 @@ parseArg _ = 5
 
 main :: IO ()
 main = do
-  args <- getArgs
---   let n = parseArg args :: Int
-
   toFile def "solution.svg" $ do
-    layout_title .= "-u'' - u = sinx        u(0) = 0,    u'(2) - u(2) = 0"
     setColors [opaque blue, opaque blue, opaque red]
     plot (line "Aproximate solution" [approxPlot])
     plot (points "" approxPlot)
