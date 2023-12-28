@@ -40,6 +40,15 @@ generateBs = [ [ generateB i j | i <- [0..n-1] ] | j <- [0..n-1] ]
 generateB :: Int -> Int -> Double
 generateB i j  
     |abs(i - j) > 1 = 0
-    |otherwise = fromJust (eI i) 0 * fromJust (eI i) 0 - nIntegrate256 f 0 2
+    |otherwise = fromJust (eI i) 0 * fromJust (eI j) 0 - nIntegrate256 f up low
     where 
         f x = fromJust(eI' i) x  * fromJust(eI' j) x * k x
+        (up, low) = (0, 2)
+
+bounds :: Int -> Int -> (Double, Double)
+bounds i j  | abs(i - j) == 1 = ((fromIntegral low * range)/fromIntegral n, (fromIntegral up*range)/fromIntegral n)
+            |otherwise = (lowerBound + h*fromIntegral i, lowerBound + h * fromIntegral(i+1))
+  where
+    up = max i j
+    low = min i j
+    h = range/fromIntegral n
