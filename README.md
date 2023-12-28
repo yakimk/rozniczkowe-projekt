@@ -2,6 +2,21 @@
 
 Temat nr.1 Równanie Transportu Ciepła
 
-Równania są w ./pdfs/main.pdf
+Rozwiązanie problemu jest w ./pdfs/main.pdf.
 
+Wykres wypisuje się do pliku "./solution.svg". W projekcie jako przykład podany jest wykres dla n = 20.
 
+## Build całego projektu
+```
+stack build
+```
+
+Dla n = 10
+```
+stack run
+```
+
+Dla dowolnego n
+```
+stack exec r-projekt-exe -- n
+```
