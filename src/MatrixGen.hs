@@ -9,7 +9,7 @@ import Numeric.LinearAlgebra (flatten, fromLists, linearSolve, luSolve, toList, 
 approxU :: Double -> Double
 approxU x = sum . zipWith (*) coefficients $ basisF x
   where
-    basisF x = [fromJust (eI i) x | i <- [0..n]]
+    basisF x = [fromJust (eI i) x | i <- [0..n-1]]
 
 coefficients :: [Double]
 coefficients = toList . flatten $ fromJust (linearSolve b_matrix l_vector)
@@ -20,20 +20,26 @@ coefficients = toList . flatten $ fromJust (linearSolve b_matrix l_vector)
 n :: Int
 n = defaultN
 
+k :: Double -> Double
+k x 
+  |x < lowerBound || x > upperBound = 0
+  |x <= 1 = 1
+  |otherwise = 2
+
 generateLs :: [Double]
-generateLs = [generateL i | i <- [0..n]]
+generateLs = [generateL i | i <- [0..n-1]]
 
 generateL :: Int -> Double
 generateL i 
-    |i  == 0 = 20
+    |i  == 0 = 20 * fromJust(eI i) 0
     |otherwise = 0
 
 generateBs :: [[Double]]
-generateBs = [ [ generateB i j | i <- [1..n] ] | j <- [1..n] ]
+generateBs = [ [ generateB i j | i <- [0..n-1] ] | j <- [0..n-1] ]
 
 generateB :: Int -> Int -> Double
 generateB i j  
     |abs(i - j) > 1 = 0
-    |otherwise = generateL j * fromJust (eI i) 0 - nIntegrate256 f lowerBound upperBound
+    |otherwise = fromJust (eI i) 0 * fromJust (eI i) 0 - nIntegrate256 f 0 2
     where 
-        f x = fromJust(eI' i) x  * fromJust(eI' j) x
+        f x = fromJust(eI' i) x  * fromJust(eI' j) x * k x

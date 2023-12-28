@@ -15,4 +15,4 @@ range :: Double
 range = upperBound - lowerBound
 
 defaultN :: Int
-defaultN = 100
+defaultN = 10

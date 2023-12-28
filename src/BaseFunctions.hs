@@ -24,8 +24,8 @@ eI' i
 constructF :: Double -> Int -> Double -> Double
 constructF h i x
     |x <= x_prev || x >= x_succ = 0 
-    |x < x_curr = constructF' h i x * (x - x_prev)
-    |otherwise = constructF' h i x * (x_succ - x)
+    |x < x_curr =  (x-x_prev)/h
+    |otherwise = (x_succ - x)/h
     where
         x_prev = h * fromIntegral (i - 1) + lowerBound
         x_succ = h * fromIntegral (i + 1) + lowerBound
@@ -34,8 +34,8 @@ constructF h i x
 constructF' :: Double -> Int -> Double -> Double
 constructF' h i x  
     |x <= x_prev || x >= x_succ = 0 
-    |x < x_curr = 1/(x_curr - x_prev)
-    |otherwise = 1/(x_succ - x_curr)
+    |x < x_curr = 1/h
+    |otherwise = -1/h
     where
         x_prev = h * fromIntegral (i - 1) + lowerBound
         x_succ = h * fromIntegral (i + 1) + lowerBound

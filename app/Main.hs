@@ -28,10 +28,6 @@ approxPlot = [(x i , approxU (x i)) | i <- [0..n]] :: [(Double, Double)]
     where
         h = range / fromIntegral n
         x i = h  * fromIntegral i + lowerBound
-exactPlot :: [(Double, Double)]
-exactPlot = [(x, u x) | x <- [lowerBound, 0.1 .. upperBound]] :: [(Double, Double)]
-  where
-    u x = 0.5 * (x * cos x + ((cos 2 + 2 * sin 2) * sin x) / (cos 2 - sin 2))
 
 parseArg :: [String] -> Int
 parseArg [arg] = read arg
@@ -47,6 +43,5 @@ main = do
     setColors [opaque blue, opaque blue, opaque red]
     plot (line "Aproximate solution" [approxPlot])
     plot (points "" approxPlot)
-    plot (line "Exact solution" [exactPlot])
 
   putStrLn "Done."
