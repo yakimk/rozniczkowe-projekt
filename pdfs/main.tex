@@ -32,13 +32,13 @@ $$
 \begin{gathered}
 -\frac{dk}{dx}\frac{du}{dx} - k\frac{d^2u}{dx^2} = 0\\
 - k\frac{d^2u}{dx^2} = 0\\
-\frac{d^2u}{dx^2} = 0\\
-\int_0^2\frac{d^2u}{dx^2} = 0\\
-u'(x)v(x)\big\rvert^2_0 - \int_0^2u'v'dx = 0\\
-u'(2)v(2) - u'(0)v(0) - \int_0^2u'v'dx = 0\\
-- u'(0)v(0) - \int_0^2u'v'dx = 0\\
-u(0)v(0) - \int_0^2u'v'dx = 20v(0)\\
-B(u,v ) = u(0)v(0) - \int_0^2u'v'dx, \text{ } L(v) = 20v(0)\\
+-\int_0^2k(x)\frac{d^2u}{dx^2} = 0\\
+-u'(x)v(x)k(x)\big\rvert^2_0 + \int_0^2u'v'dx = 0\\
+u'(0)v(0) - 2u'(2)v(2) + \int_0^2k(x)u'v'dx = 0\\
+u'(0)v(0) + \int_0^2k(x)u'v'dx = 0\\
+v(0)(20 - u(0)) + \int_0^2k(x)u'v'dx = 0\\
+ u(0)v(0) -\int_0^2k(x)u'v'dx= 20v(0)\\
+B(u,v ) = u(0)v(0) - \int_0^2k(x)u'v'dx, \text{ } L(v) = 20v(0)\\
 B(u, v) = L(v)\\
 \end{gathered}
 $$
