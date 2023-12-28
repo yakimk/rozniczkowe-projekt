@@ -21,23 +21,25 @@ import System.Environment (getArgs)
 import System.Exit ()
 import Text.Read()
 
-n = defaultN
 
 approxPlot :: [(Double, Double)]
-approxPlot = [(x i , approxU (x i)) | i <- [0..n]] :: [(Double, Double)]
+approxPlot n = [(x i , approxU (x i)) | i <- [0..n]] :: [(Double, Double)]
     where
         h = range / fromIntegral n
         x i = h  * fromIntegral i + lowerBound
 
 parseArg :: [String] -> Int
 parseArg [arg] = read arg
-parseArg _ = 5
+parseArg _ = defaultN
 
 main :: IO ()
 main = do
+  args <- getArgs
+  let n = parseArg args :: Int
+
   toFile def "solution.svg" $ do
     setColors [opaque blue, opaque blue, opaque red]
-    plot (line "Aproximate solution" [approxPlot])
+    plot (line "Aproximate solution" [approxPlot n])
     plot (points "" approxPlot)
 
   putStrLn "Done."
