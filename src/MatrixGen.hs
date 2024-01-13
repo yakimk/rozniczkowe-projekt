@@ -1,10 +1,14 @@
-module MatrixGen(generateBs, generateLs, coefficients, approxU)where
-
+module MatrixGen(approxU)where
+  
 import BaseFunctions
 import Spec
 import Math.GaussianQuadratureIntegration(nIntegrate256)
 import Data.Maybe (fromJust)
-import Numeric.LinearAlgebra (flatten, fromLists, linearSolve, luSolve, toList, (><))
+
+type Vector = [Double]
+type Row = [Double]
+type Matrix = [Row]
+
 
 approxU :: Double -> Double
 approxU x = sum . zipWith (*) coefficients $ basisF x
@@ -12,10 +16,7 @@ approxU x = sum . zipWith (*) coefficients $ basisF x
     basisF x = [fromJust (eI i) x | i <- [0..n-1]]
 
 coefficients :: [Double]
-coefficients = toList . flatten $ fromJust (linearSolve b_matrix l_vector)
-  where
-    b_matrix = fromLists generateBs 
-    l_vector = (n >< 1) generateLs
+coefficients = gaussEliminationFromMatrix $ augmentMatrix generateBs generateLs
 
 n :: Int
 n = defaultN
@@ -34,7 +35,7 @@ generateL i
     |i  == 0 = 20 * fromJust(eI i) 0
     |otherwise = 0
 
-generateBs :: [[Double]]
+generateBs :: Matrix
 generateBs = [ [ generateB i j | i <- [0..n-1] ] | j <- [0..n-1] ]
 
 generateB :: Int -> Int -> Double
@@ -51,3 +52,54 @@ bounds i j  | abs(i - j) == 1 = (range * fromIntegral low/fromIntegral n, (fromI
   where
     up = max i j
     low = min i j
+
+augmentMatrix :: Matrix -> Vector -> Matrix
+augmentMatrix matL vec = [(matL !! s) ++ [vec !! s]| s <-[0..length vec -1]]
+
+-- Gauss Elimination: Solve matrix equation Ax = B
+gaussEliminationFromEquation :: Matrix -> Matrix -> Vector
+gaussEliminationFromEquation a b = gaussEliminationFromMatrix $ zipMatrix a b
+
+-- Create augmented matrix from A and B
+zipMatrix :: Matrix -> Matrix -> Matrix
+zipMatrix [] [] = []
+zipMatrix (x:xs) (y:ys) = (x ++ y) : zipMatrix xs ys
+
+-- Gauss Elimination: Solve a given augmented matrix
+gaussEliminationFromMatrix :: Matrix -> Vector
+gaussEliminationFromMatrix matrix = traceBack $ gaussReduction matrix
+
+-- Compute the row-reduced-echelon form of the matrix
+gaussReduction :: Matrix -> Matrix
+gaussReduction [] = []
+gaussReduction matrix = r: gaussReduction rs
+    where
+        (r:rows) = pivotCheck matrix
+        rs = map reduceRow rows
+        -- Row reduction using row operations
+        reduceRow row
+            | head row == 0 = drop 1 row
+            | otherwise = drop 1 $ zipWith (-) (map (*frac) row) r
+            where
+                frac = head r/head row
+
+-- Check and swap row if pivot element is zero
+pivotCheck :: Matrix -> Matrix
+pivotCheck (r:rs)
+    | head r /= 0 = r:rs
+    | otherwise = pivotCheck (rs ++ [r])
+
+{- Reverse the rows and columns to make the calculation easier and undo
+-- the column reversion before returning the solutions
+-}
+traceBack :: Matrix -> Vector
+traceBack = reverse . traceBack' . reverse . map reverse
+
+-- Use back substitution to calculate the solutions
+traceBack' :: Matrix -> Vector
+traceBack' [] = []
+traceBack' (r:rows) = var : traceBack' rs
+    where
+        var = head r/last r
+        rs = map substituteVariable rows
+        substituteVariable (x:(y:ys)) = (x-var*y):ys

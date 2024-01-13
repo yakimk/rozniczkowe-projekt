@@ -7,14 +7,12 @@ import Graphics.Rendering.Chart.Backend.Diagrams (toFile)
 import Graphics.Rendering.Chart.Easy
   ( Default (def),
     blue,
-    layout_title,
     line,
     opaque,
     plot,
     points,
     red,
-    setColors,
-    (.=),
+    setColors
   )
 import Spec
 import System.Environment (getArgs)
@@ -39,7 +37,7 @@ main = do
 
   toFile def "solution.svg" $ do
     setColors [opaque blue, opaque blue, opaque red]
-    plot (line "Aproximate solution" [approxPlot n])
+    plot (line "Solution" [approxPlot n])
     plot (points "" $ approxPlot n)
 
   putStrLn "Done."
