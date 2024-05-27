@@ -1,10 +1,10 @@
-# Iakymenko nr.indeksu 419235 Pon 16:40
+# Projekt końcowy przedmiotu "Równania różniczkowe"
+Projekt stanowi prostą implementację metody elementów skończonych w Haskellu.
+![Preview](./solution.svg)
 
-Temat nr.1 Równanie Transportu Ciepła
+Analityczne rozwiązanie problemu jest w "pdfs/main.pdf".
 
-Rozwiązanie problemu jest w ./pdfs/main.pdf.
-
-Wykres wypisuje się do pliku "./solution.svg". W projekcie jako przykład podany jest wykres dla n = 20.
+Wykres zapisuje się do pliku "solution.svg". W projekcie jako przykład podany jest wykres dla n = 20.
 
 ## Build całego projektu
 ```
